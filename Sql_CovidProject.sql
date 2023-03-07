@@ -1,11 +1,13 @@
+/*
+Covid 19 Data Exploration 
+Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+*/
+
 Select *
 FROM PortfolioProject..CovidDeaths
 Where continent is not null
 Order by 3,4
 
---Select *
---FROM PortfolioProject..CovidVaccinations
---Order by 3,4
 
 -- Select Data 
 
@@ -15,6 +17,7 @@ order by 1,2
 
 -- Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in your country
+
 Select location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
 From PortfolioProject..CovidDeaths
 Where location like '%states%' -- in USA
@@ -24,6 +27,7 @@ order by 1,2
 
 -- Looking at the Total Cases vs Population
 -- shows what percentage of population got covid (out of confirmed cases)
+
 Select location, date, population, total_cases, (total_cases/population)*100 as PercentPopulationInfected
 From PortfolioProject..CovidDeaths
 Where location like '%states%' -- in USA for now
@@ -50,6 +54,7 @@ Order by TotalDeathCount desc
 
 -- Showing continents with highest death count
 -- changed from "is not null" for continent to "is null"
+
 Select continent, MAX(cast(total_deaths as int)) as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
 Where continent is not null
@@ -76,9 +81,10 @@ where continent is not null
 -- Group by date
 -- order by 1 desc
 
--- USING VACCINATION DATA 
+-------- USING VACCINATION DATA ----------
 
 -- Joining the tables on location and date
+
 Select *
 From PortfolioProject..CovidDeaths dea
 Join PortfolioProject..CovidVaccinations vac
@@ -120,6 +126,7 @@ From Popvac
 
 -- Creating a Temp Table
 -- adding drop table so it will delete and repopulate each time we change things without an error
+
 DROP Table if exists #PercentPopulationVaccinated
 Create Table #PercentPopulationVaccinated
 (
