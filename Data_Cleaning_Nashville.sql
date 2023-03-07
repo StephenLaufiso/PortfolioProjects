@@ -33,6 +33,7 @@ Join PortfolioProject..NashvilleHousing b
 Where a.PropertyAddress is null
 
 -- now updating to populate null addresses
+
 update a
 SET PropertyAddress = ISNULL(a.PropertyAddress, b.PropertyAddress)
 From PortfolioProject..NashvilleHousing a
@@ -42,6 +43,7 @@ Join PortfolioProject..NashvilleHousing b
 Where a.PropertyAddress is null
 
 -- checking for null values now returns nothing
+
 Select *
 From PortfolioProject..NashvilleHousing
 Where PropertyAddress is null
@@ -83,6 +85,7 @@ Select *
 From PortfolioProject..NashvilleHousing
 
 -- Working on Owner Address (separating like above)
+
 Select OwnerAddress
 From PortfolioProject..NashvilleHousing
 
@@ -94,6 +97,7 @@ PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1)
 From PortfolioProject..NashvilleHousing
 
 -- Creating new columns and updating them
+
 Alter Table NashvilleHousing
 Add OwnerSplitAddress Nvarchar(255);
 
@@ -125,6 +129,7 @@ group by SoldAsVacant
 order by 2
 
 -- changing with a case statement
+
 Select SoldAsVacant,
 Case when SoldAsVacant = 'Y' THEN 'Yes'
 	   when SoldAsVacant = 'N' THEN 'No'
@@ -133,6 +138,7 @@ Case when SoldAsVacant = 'Y' THEN 'Yes'
 From PortfolioProject..NashvilleHousing
 
 -- updating column
+
 update NashvilleHousing
 SET SoldAsVacant = Case when SoldAsVacant = 'Y' THEN 'Yes'
 	   when SoldAsVacant = 'N' THEN 'No'
